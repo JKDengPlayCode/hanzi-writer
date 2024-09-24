@@ -1,8 +1,10 @@
 import { CharacterJson } from './typings/types';
 
 const VERSION = '2.0';
-const getCharDataUrl = (char: string) =>
-  `https://cdn.jsdelivr.net/npm/hanzi-writer-data@${VERSION}/${char}.json`;
+// const getCharDataUrl = (char: string) =>
+//   `https://cdn.jsdelivr.net/npm/hanzi-writer-data@${VERSION}/${char}.json`;
+
+const localCharDataUrl = (char: string) =>`/static/characters/${char}.json`; // 修改为本地路径
 
 const defaultCharDataLoader = (
   char: string,
@@ -15,7 +17,8 @@ const defaultCharDataLoader = (
     // IE 9 and 10 don't seem to support this...
     xhr.overrideMimeType('application/json');
   }
-  xhr.open('GET', getCharDataUrl(char), true);
+  // xhr.open('GET', getCharDataUrl(char), true);
+  xhr.open('GET', localCharDataUrl(char), true);
   xhr.onerror = (event) => {
     onError(xhr, event);
   };
